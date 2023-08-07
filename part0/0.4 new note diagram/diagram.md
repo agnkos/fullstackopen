@@ -27,12 +27,14 @@ activate server
 Note right of browser: Reload causes fetching main.js
 server-->>browser: JS file
 deactivate server
+Note right of browser: The browser starts executing JS code, which makes an HTTP GET request
 
 browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
 activate server
-Note right of browser: Reload causes fetching data.json
+Note right of browser: Fetching data.json
 server-->>browser: data.json
 deactivate server
+Note right of browser: Rendering notes
 
 ```
 
