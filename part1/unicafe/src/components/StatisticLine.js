@@ -1,6 +1,9 @@
 const StatisticLine = ({ text, value }) => {
     return (
-        <p className='stat'>{text}: {value}</p>
+        <tr className='stat'>
+            <td className="td">{text}</td>
+            <td>{value}</td>
+        </tr>
     )
 }
 export default StatisticLine

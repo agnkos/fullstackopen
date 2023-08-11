@@ -47,3 +47,7 @@ body {
 .stat {
   margin-bottom: .25em;
 }
+
+.td {
+  padding-right: 10px;
+}
