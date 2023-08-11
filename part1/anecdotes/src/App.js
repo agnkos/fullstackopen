@@ -1,9 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const App = () => {
-
-  const [selected, setSelected] = useState(0)
-
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -15,17 +12,32 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
   const randomAnecdote = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length);
-    console.log(randomNumber)
     setSelected(randomNumber)
   }
+
+  const addVote = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+    setVotes(newVotes);
+  }
+
+  // useEffect(() => {
+  //   console.log('votes from useEffect', votes)
+  // }, [votes])
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={randomAnecdote} className='button'>Random anecdote</button>
+      <p>Has votes {votes[selected]}.</p>
+      <div className='btn-container'>
+        <button onClick={addVote} className='btn btn-vote'>Vote</button>
+        <button onClick={randomAnecdote} className='btn'>Random anecdote</button>
+      </div>
     </div>
   )
 }

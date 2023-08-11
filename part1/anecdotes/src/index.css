@@ -10,7 +10,12 @@ body {
     sans-serif;
 }
 
-.button {
+.btn-container {
+  display: flex;
+  gap: 1em;
+}
+
+.btn {
   padding: .5em 1em;
   border: none;
   border-radius: .25em;
@@ -23,6 +28,14 @@ body {
   transition: background-color 500ms;
 }
 
-.button:hover {
+.btn:hover {
   background-color: #327a69;
+}
+
+.btn-vote {
+  background-color: #FD8D14;
+}
+
+.btn-vote:hover {
+  background-color: #f9880f;
 }
