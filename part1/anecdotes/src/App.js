@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const App = () => {
   const anecdotes = [
@@ -26,18 +26,20 @@ const App = () => {
     setVotes(newVotes);
   }
 
-  // useEffect(() => {
-  //   console.log('votes from useEffect', votes)
-  // }, [votes])
+  const maxVotes = Math.max(...votes)
+  const indexOfMaxVotes = votes.indexOf(maxVotes)
 
   return (
     <div>
+      <p className='title'>Anecdote of the day</p>
       <p>{anecdotes[selected]}</p>
       <p>Has votes {votes[selected]}.</p>
       <div className='btn-container'>
         <button onClick={addVote} className='btn btn-vote'>Vote</button>
         <button onClick={randomAnecdote} className='btn'>Random anecdote</button>
       </div>
+      <p className='title'>Anecdote with most votes</p>
+      <p>{anecdotes[indexOfMaxVotes]}</p>
     </div>
   )
 }

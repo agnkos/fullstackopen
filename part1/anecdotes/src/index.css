@@ -10,6 +10,11 @@ body {
     sans-serif;
 }
 
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .btn-container {
   display: flex;
   gap: 1em;
