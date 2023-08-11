@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 2em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.btn {
+  margin-right: 2em;
+  margin-bottom: 2em;
+  padding: .5em 1em;
+  border-radius: .5em;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+
+.btn:hover {
+  transform: translateX(1px) translateY(1px);
+}
+
+.green {
+  background-color: #43B929;
+}
+.red {
+  background-color: #c1121f;
+}
+.gray {
+  background-color: #c2c5aa;
+}
+
+.title {
+  margin-bottom: .5em;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stat {
+  margin-bottom: .25em;
+}
