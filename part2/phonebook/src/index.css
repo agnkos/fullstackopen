@@ -5,3 +5,14 @@
 body {
   padding: 2em;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: .5em;
+}
+
+.form {
+  width: 300px;
+}
