@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(' http://localhost:3001/persons')
+      .get('http://localhost:3001/persons')
       .then(response => {
         // console.log(response.data);
         setPersons(response.data)
@@ -31,9 +31,15 @@ const App = () => {
       setNewName('')
       setNewNumber('')
     } else {
-      setPersons(prev => ([...prev, personObject]))
-      setNewName('')
-      setNewNumber('')
+      // setPersons(prev => ([...prev, personObject]))
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          console.log(response)
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
