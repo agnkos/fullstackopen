@@ -16,3 +16,22 @@ body {
 .form {
   width: 300px;
 }
+
+.item-container {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.delete-btn {
+  border: none;
+  border-radius: 5px;
+  background-color: tomato;
+  color: whitesmoke;
+  transition: background-color 250ms;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: firebrick;
+}

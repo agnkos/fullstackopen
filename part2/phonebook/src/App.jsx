@@ -38,6 +38,14 @@ const App = () => {
     }
   }
 
+  const removePerson = id => {
+    if (window.confirm('Do you really want to delete the contact?')) {
+      personService
+        .remove(id)
+        .then(setPersons(persons.filter(person => person.id !== id)))
+    }
+  }
+
   const handleNameChange = (e) => {
     setNewName(e.target.value)
   }
@@ -66,7 +74,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <PersonsList personsToShow={personsToShow} />
+      <PersonsList personsToShow={personsToShow} removePerson={removePerson} />
 
     </div>
   )
