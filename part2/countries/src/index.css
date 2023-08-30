@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -7,12 +9,25 @@ body {
   font-family: Arial;
 }
 
-.search-container {
+.flex {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: .5em;
 }
 
 .flag-container {
   border: 1px solid gray;
+}
+
+.show-btn {
+  border: none;
+  border-radius: 5px;
+  color: whitesmoke;
+  background-color: rgb(46, 146, 146);
+  cursor: pointer;
+  transition: background-color 250ms;
+}
+
+.show-btn:hover {
+  background-color: rgb(40, 109, 109);
 }
