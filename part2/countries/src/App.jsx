@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <div className="search-container">
-        <p>Found countries:</p>
+        <p>Find countries:</p>
         <input
           value={query}
           onChange={handleQueryChange}
