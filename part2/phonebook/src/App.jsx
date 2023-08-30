@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import PersonsList from './components/PersonsList';
-import personService from './services/persons'
+import personService from './services/persons';
+import Notification from './components/Notification';
 
 // changed id setting method! because of deleting the id cannot be set up as persons.length + 1 (it makes some id double if some contacts have been deleted)
 
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [notificationMsg, setNotificationMsg] = useState(null)
 
   useEffect(() => {
     personService
@@ -36,6 +38,10 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
           })
+        setNotificationMsg(`Updated ${person.name} number`)
+        setTimeout(() => {
+          setNotificationMsg(null)
+        }, 5000)
         setNewName('')
         setNewNumber('')
       }
@@ -44,6 +50,10 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setNotificationMsg(`Added ${personObject.name}`)
+          setTimeout(() => {
+            setNotificationMsg(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
         })
@@ -54,7 +64,12 @@ const App = () => {
     if (window.confirm('Do you really want to delete the contact?')) {
       personService
         .remove(id)
-        .then(setPersons(persons.filter(person => person.id !== id)))
+        .then(setPersons(persons.filter(person => person.id !== id))
+        )
+      setNotificationMsg('Contact deleted')
+      setTimeout(() => {
+        setNotificationMsg(null)
+      }, 5000)
     }
   }
 
@@ -78,6 +93,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={notificationMsg} />
 
       <Filter handleFilter={handleFilter} />
 

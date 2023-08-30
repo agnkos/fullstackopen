@@ -35,3 +35,13 @@ body {
 .delete-btn:hover {
   background-color: firebrick;
 }
+
+.notification {
+  margin-bottom: 1em;
+  padding: .5em;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #5B9A8B;
+  border: 1px solid #5B9A8B;
+  border-radius: 8px;
+}
