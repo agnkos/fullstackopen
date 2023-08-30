@@ -4,6 +4,8 @@ import PersonForm from './components/PersonForm';
 import PersonsList from './components/PersonsList';
 import personService from './services/persons'
 
+// changed id setting method! because of deleting the id cannot be set up as persons.length + 1 (it makes some id double if some contacts have been deleted)
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
@@ -21,12 +23,22 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1
+      id: persons[persons.length - 1].id + 1
     }
     if (persons.some(person => person.name === personObject.name)) {
-      alert(`${personObject.name} is already added to the phonebook`)
-      setNewName('')
-      setNewNumber('')
+      if (window.confirm(`${personObject.name} is already added to the phonebook, replace the old number?`)) {
+
+        const person = persons.find(p => p.name === personObject.name)
+        const changedPerson = { ...person, number: personObject.number }
+
+        personService
+          .update(person.id, changedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+          })
+        setNewName('')
+        setNewNumber('')
+      }
     } else {
       personService
         .create(personObject)
@@ -58,6 +70,10 @@ const App = () => {
   }
 
   const personsToShow = filter.length > 0 ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase())) : persons
+
+  // useEffect(() => {
+  //   console.log(persons)
+  // }, [persons])
 
   return (
     <div>

@@ -21,9 +21,19 @@
       "id": 4
     },
     {
-      "name": "Aga Kos",
-      "number": "3423423423",
-      "id": 6
+      "name": "Aga",
+      "number": "123",
+      "id": 7
+    },
+    {
+      "name": "Wojtek",
+      "number": "456-678-7889",
+      "id": 8
+    },
+    {
+      "name": "Piotr",
+      "number": "1234543",
+      "id": 9
     }
   ]
 }
