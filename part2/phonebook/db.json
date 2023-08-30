@@ -24,21 +24,6 @@
       "name": "Aga",
       "number": "123",
       "id": 7
-    },
-    {
-      "name": "Wojtek",
-      "number": "456-678-7889",
-      "id": 8
-    },
-    {
-      "name": "Krzychu",
-      "number": "2321323",
-      "id": 10
-    },
-    {
-      "name": "Piotr",
-      "number": "324234234",
-      "id": 11
     }
   ]
 }

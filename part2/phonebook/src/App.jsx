@@ -4,6 +4,7 @@ import PersonForm from './components/PersonForm';
 import PersonsList from './components/PersonsList';
 import personService from './services/persons';
 import Notification from './components/Notification';
+import Error from './components/Error';
 
 // changed id setting method! because of deleting the id cannot be set up as persons.length + 1 (it makes some id double if some contacts have been deleted)
 
@@ -12,7 +13,8 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
-  const [notificationMsg, setNotificationMsg] = useState(null)
+  const [notificationMsg, setNotificationMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     personService
@@ -37,11 +39,18 @@ const App = () => {
           .update(person.id, changedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+            setNotificationMsg(`Updated ${person.name} number`)
+            setTimeout(() => {
+              setNotificationMsg(null)
+            }, 5000)
           })
-        setNotificationMsg(`Updated ${person.name} number`)
-        setTimeout(() => {
-          setNotificationMsg(null)
-        }, 5000)
+          .catch(error => {
+            console.log(`Iformation of ${personObject.name} has been already removed from the server`)
+            setErrorMsg(`Iformation of ${personObject.name} has been already removed from the server`)
+            setTimeout(() => {
+              setErrorMsg(null)
+            }, 5000)
+          })
         setNewName('')
         setNewNumber('')
       }
@@ -64,12 +73,21 @@ const App = () => {
     if (window.confirm('Do you really want to delete the contact?')) {
       personService
         .remove(id)
-        .then(setPersons(persons.filter(person => person.id !== id))
+        .then(data => {
+          setPersons(persons.filter(person => person.id !== id))
+          setNotificationMsg('Contact deleted')
+          setTimeout(() => {
+            setNotificationMsg(null)
+          }, 5000)
+        }
         )
-      setNotificationMsg('Contact deleted')
-      setTimeout(() => {
-        setNotificationMsg(null)
-      }, 5000)
+        .catch(error => {
+          console.log(`Contact has been already removed from the server`)
+          setErrorMsg(`Contact has been already removed from the server`)
+          setTimeout(() => {
+            setErrorMsg(null)
+          }, 5000)
+        })
     }
   }
 
@@ -95,6 +113,7 @@ const App = () => {
       <h2>Phonebook</h2>
 
       <Notification message={notificationMsg} />
+      <Error message={errorMsg} />
 
       <Filter handleFilter={handleFilter} />
 

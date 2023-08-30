@@ -4,6 +4,7 @@
 
 body {
   padding: 2em;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .flex {
@@ -36,12 +37,21 @@ body {
   background-color: firebrick;
 }
 
-.notification {
+.notification,
+.error {
   margin-bottom: 1em;
   padding: .5em;
   font-size: 1.25em;
   font-weight: bold;
+  border-radius: 8px;
+}
+
+.notification {
   color: #5B9A8B;
   border: 1px solid #5B9A8B;
-  border-radius: 8px;
+}
+
+.error {
+  color: #C63D2F;
+  border: 1px solid #C63D2F;
 }
