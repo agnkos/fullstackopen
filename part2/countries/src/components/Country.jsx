@@ -14,7 +14,7 @@ const Country = ({ country }) => {
 
     const [countryToShow, setCountryToShow] = useState([]);
     const [weatherToShow, setWeatherToShow] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios
@@ -22,21 +22,32 @@ const Country = ({ country }) => {
             .then(response => {
                 setCountryToShow(response.data)
 
-                axios
-                    .get(`https://api.openweathermap.org/data/2.5/weather?q=${response.data.capital}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+                // axios
+                //     .get(`https://api.openweathermap.org/data/2.5/weather?q=${response.data.capital}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+                //     .then(response => {
+                //         setWeatherToShow(response.data)
+                //         setLoading(false)
+                //     })
+
+                const options = {
+                    method: 'GET',
+                    url: `http://localhost:5000/${response.data.capital}`,
+                }
+                axios.request(options)
                     .then(response => {
                         setWeatherToShow(response.data)
-                        setLoading(false)
+                        // setLoading(false)
                     })
+                    .catch(error => console.error(error))
             })
     }, [])
 
     return (
         <>
-            {loading ? (
+            {/* {loading ? (
                 <div>Loading...</div>
-            ) :
-                (<>
+            ) : */}
+                {/* (<> */}
                     <h1>{countryToShow?.name?.common}</h1>
                     <h2>({countryToShow?.name?.official})</h2>
                     <p>Capital: {countryToShow?.capital}</p>
@@ -51,8 +62,8 @@ const Country = ({ country }) => {
                     <p>Temperature: {weatherToShow?.main?.temp} Celsius</p>
                     <img src={`https://openweathermap.org/img/wn/${weatherToShow?.weather?.[0]?.icon}@2x.png`} className="weather-icon" />
                     <p>Wind: {weatherToShow?.wind?.speed} m/s</p>
-                </>)
-            }
+                {/* </>) */}
+            {/* } */}
         </>
     )
 }
