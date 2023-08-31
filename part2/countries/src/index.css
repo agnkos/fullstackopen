@@ -31,3 +31,8 @@ body {
 .show-btn:hover {
   background-color: rgb(40, 109, 109);
 }
+
+.weather-icon {
+  height: 125px;
+  width: 125px;
+}
