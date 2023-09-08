@@ -27,7 +27,7 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons[persons.length - 1].id + 1
+      // id: persons[persons.length - 1].id + 1
     }
     if (persons.some(person => person.name === personObject.name)) {
       if (window.confirm(`${personObject.name} is already added to the phonebook, replace the old number?`)) {
@@ -45,8 +45,14 @@ const App = () => {
             }, 5000)
           })
           .catch(error => {
-            console.log(`Iformation of ${personObject.name} has been already removed from the server`)
-            setErrorMsg(`Iformation of ${personObject.name} has been already removed from the server`)
+            console.log('error', error.response.data.error)
+            console.log(`Information of ${personObject.name} has been already removed from the server`)
+            setErrorMsg(`Information of ${personObject.name} has been already removed from the server`)
+            if (error.response.data.error) {
+              setErrorMsg(error.response.data.error)
+            } else {
+              setErrorMsg(`Information of ${personObject.name} has been already removed from the server`)
+            }
             setTimeout(() => {
               setErrorMsg(null)
             }, 5000)
@@ -65,6 +71,12 @@ const App = () => {
           }, 5000)
           setNewName('')
           setNewNumber('')
+        })
+        .catch(error => {
+          setErrorMsg(error.response.data.error)
+          setTimeout(() => {
+            setErrorMsg(null)
+          }, 5000)
         })
     }
   }
@@ -104,9 +116,9 @@ const App = () => {
 
   const personsToShow = filter.length > 0 ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase())) : persons
 
-  // useEffect(() => {
-  //   console.log(persons)
-  // }, [persons])
+  useEffect(() => {
+    console.log(persons)
+  }, [persons])
 
   return (
     <div>
