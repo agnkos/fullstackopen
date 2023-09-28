@@ -45,8 +45,6 @@ const App = () => {
             }, 5000)
           })
           .catch(error => {
-            console.log('error', error.response.data.error)
-            console.log(`Information of ${personObject.name} has been already removed from the server`)
             setErrorMsg(`Information of ${personObject.name} has been already removed from the server`)
             if (error.response.data.error) {
               setErrorMsg(error.response.data.error)
@@ -116,9 +114,9 @@ const App = () => {
 
   const personsToShow = filter.length > 0 ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase())) : persons
 
-  useEffect(() => {
-    console.log(persons)
-  }, [persons])
+  // useEffect(() => {
+  //   console.log(persons)
+  // }, [persons])
 
   return (
     <div>

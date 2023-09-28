@@ -14,3 +14,6 @@ React, JSON server, Axios
 
 #### Part 3
 Node.js, Express, nodemon, Postman, morgan, MongoDB, Mongoose, ESLint,
+
+#### Part 4
+Node.js, Jest, Lodash, supertest, bcrypt, jsonwebtoken
