@@ -1,0 +1,20 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 1em;
+    font-family: Arial;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.bolded {
+    font-weight: bold;
+}
