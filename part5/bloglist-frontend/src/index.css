@@ -32,3 +32,21 @@ body {
 .add-btn {
     margin-bottom: .5em;
 }
+
+.message,
+.error {
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: .75em;
+    margin-bottom: .75em;
+}
+
+.message {
+    color: green;
+    border: 1px solid green;
+}
+
+.error {
+    color: red;
+    border: 1px solid red;
+}

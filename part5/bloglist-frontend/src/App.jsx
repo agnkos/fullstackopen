@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -11,6 +12,8 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
+  const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -47,6 +50,10 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
+      setErrorMessage('wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
       console.log('wrong credentials')
     }
   }
@@ -57,13 +64,18 @@ const App = () => {
   }
 
   if (user === null) {
-    return <LoginForm
-      handleLogin={handleLogin}
-      username={username}
-      password={password}
-      handleUsernameChange={handleUsernameChange}
-      handlePasswordChange={handlePasswordChange}
-    />
+    return (
+      <>
+      <Notification message={message} errorMessage={errorMessage} />
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={handleUsernameChange}
+          handlePasswordChange={handlePasswordChange}
+        />
+      </>
+    )
   }
 
   const handleBlogChange = ({ target }) => {
@@ -78,6 +90,10 @@ const App = () => {
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
         setNewBlog({ 'title': '', 'author': '', 'url': '' })
+        setMessage(`a new blog ${newBlog.title} by ${newBlog.author} was added.`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       .catch(error => console.log('error', error.response.data.error))
   }
@@ -86,6 +102,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      <Notification message={message} errorMessage={errorMessage} />
       <div className='flex'>
         <p>
           <span className='bolded'>{user.name} </span>
