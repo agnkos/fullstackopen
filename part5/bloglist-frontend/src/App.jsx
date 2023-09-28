@@ -3,12 +3,14 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -34,7 +36,6 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log('logging in with', username, password)
 
     try {
       const user = await loginService.login({ username, password })
@@ -51,7 +52,6 @@ const App = () => {
   }
 
   const logOut = () => {
-    console.log('loggin out')
     window.localStorage.removeItem('loggedBlogappUser')
     setUser(null)
   }
@@ -66,6 +66,23 @@ const App = () => {
     />
   }
 
+  const handleBlogChange = ({ target }) => {
+    setNewBlog({ ...newBlog, [target.name]: target.value })
+  }
+
+  const addBlog = (event) => {
+    event.preventDefault()
+
+    blogService
+      .create(newBlog)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewBlog({ 'title': '', 'author': '', 'url': '' })
+      })
+      .catch(error => console.log('error', error.response.data.error))
+  }
+
+
   return (
     <div>
       <h2>blogs</h2>
@@ -76,6 +93,11 @@ const App = () => {
         </p>
         <button onClick={logOut}>Log out</button>
       </div>
+      <BlogForm
+        handleBlogChange={handleBlogChange}
+        newBlog={newBlog}
+        addBlog={addBlog}
+      />
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

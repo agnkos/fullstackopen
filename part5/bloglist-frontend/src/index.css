@@ -18,3 +18,17 @@ body {
 .bolded {
     font-weight: bold;
 }
+
+.form {
+    max-width: 250px;
+}
+
+.form-element {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5em;
+}
+
+.add-btn {
+    margin-bottom: .5em;
+}
