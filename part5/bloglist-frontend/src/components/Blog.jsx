@@ -14,13 +14,13 @@ const Blog = ({ blog }) => {
   return (
     <div>
       <div style={hideWhenVisible} className="blog-element">
-        {blog.title} <button onClick={toggleShowDetail}>view</button>
+        {blog.title} - {blog.author} <button onClick={toggleShowDetail}>view</button>
       </div>
       <div style={showWhenVisible} className="blog-detail">
-        <p className="blog-title">{blog.title} <button onClick={toggleShowDetail}>hide</button></p>
+        <p className="blog-title">{blog.title} - {blog.author} <button onClick={toggleShowDetail}>hide</button></p>
         <p>{blog.url}</p>
         <p>likes {blog.likes} <button>like</button></p>
-        <p>{blog.author}</p>
+        <p>added by: {blog?.user?.username}</p>
       </div>
     </div>
   )
