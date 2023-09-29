@@ -6,12 +6,18 @@ const BlogForm = ({ addBlog }) => {
 
     const handleBlogChange = ({ target }) => {
         setNewBlog({ ...newBlog, [target.name]: target.value })
-      }
+    }
+
+    const addNewBlog = (event) => {
+        event.preventDefault()
+        addBlog(newBlog)
+        setNewBlog('')
+    }
 
     return (
         <div>
             <h3>Add new blog</h3>
-            <form onSubmit={addBlog} className="form">
+            <form onSubmit={addNewBlog} className="form">
                 <div className="form-element">
                     title:
                     <input

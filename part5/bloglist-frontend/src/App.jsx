@@ -14,6 +14,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
 
   const blogFormRef = useRef()
 
@@ -80,8 +81,8 @@ const App = () => {
     )
   }
 
-  const addBlog = (event) => {
-    event.preventDefault()
+  const addBlog = (newBlog) => {
+    // event.preventDefault()
 
     blogFormRef.current.toggleVisibility()
 
