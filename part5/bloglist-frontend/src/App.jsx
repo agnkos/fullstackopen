@@ -12,7 +12,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
   const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -81,10 +80,6 @@ const App = () => {
     )
   }
 
-  const handleBlogChange = ({ target }) => {
-    setNewBlog({ ...newBlog, [target.name]: target.value })
-  }
-
   const addBlog = (event) => {
     event.preventDefault()
 
@@ -117,8 +112,6 @@ const App = () => {
       </div>
       <Toggle buttonLabel="add blog" ref={blogFormRef}>
         <BlogForm
-          handleBlogChange={handleBlogChange}
-          newBlog={newBlog}
           addBlog={addBlog}
         />
       </Toggle>

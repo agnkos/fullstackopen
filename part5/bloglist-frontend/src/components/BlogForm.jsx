@@ -1,4 +1,13 @@
-const BlogForm = ({ handleBlogChange, newBlog, addBlog }) => {
+import { useState } from "react"
+
+const BlogForm = ({ addBlog }) => {
+
+    const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
+
+    const handleBlogChange = ({ target }) => {
+        setNewBlog({ ...newBlog, [target.name]: target.value })
+      }
+
     return (
         <div>
             <h3>Add new blog</h3>
