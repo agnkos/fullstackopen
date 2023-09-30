@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, addLike }) => {
 
   const [showDetail, setShowDetail] = useState(false)
 
@@ -19,7 +19,7 @@ const Blog = ({ blog }) => {
       <div style={showWhenVisible} className="blog-detail">
         <p className="blog-title">{blog.title} - {blog.author} <button onClick={toggleShowDetail}>hide</button></p>
         <p>{blog.url}</p>
-        <p>likes {blog.likes} <button>like</button></p>
+        <p>likes {blog.likes} <button onClick={() => addLike(blog.id)}>like</button></p>
         <p>added by: {blog?.user?.username}</p>
       </div>
     </div>
