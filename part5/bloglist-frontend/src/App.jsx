@@ -105,10 +105,10 @@ const App = () => {
 
     blogService
       .update(id, likedBlog)
-      .then(returnedBlog => {
+      .then(() => {
         setBlogs(blogs.map(blog => blog.id !== id ? blog : likedBlog))
       })
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(`there is no blog ${blog.title}`)
         setTimeout(() => {
           setErrorMessage(null)
@@ -121,7 +121,7 @@ const App = () => {
     if (window.confirm('Do you really want to delete the blog?')) {
       blogService
         .remove(id)
-        .then(data => {
+        .then(() => {
           setBlogs(blogs.filter(blog => blog.id !== id))
           setMessage('Blog deleted')
           setTimeout(() => {
