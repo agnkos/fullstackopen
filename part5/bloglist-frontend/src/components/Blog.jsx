@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-const Blog = ({ blog, addLike }) => {
+const Blog = ({ blog, addLike, removeBlog }) => {
 
   const [showDetail, setShowDetail] = useState(false)
 
@@ -21,6 +21,7 @@ const Blog = ({ blog, addLike }) => {
         <p>{blog.url}</p>
         <p>likes {blog.likes} <button onClick={() => addLike(blog.id)}>like</button></p>
         <p>added by: {blog?.user?.username}</p>
+        <button className="delete-btn" onClick={() => removeBlog(blog.id)}>delete blog</button>
       </div>
     </div>
   )

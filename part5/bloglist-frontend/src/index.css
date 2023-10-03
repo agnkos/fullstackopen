@@ -70,7 +70,7 @@ p {
     margin: 1em 0;
 }
 
-.blog-detail > p {
+.blog-detail>p {
     margin: .25em;
 }
 
@@ -78,4 +78,18 @@ p {
     display: flex;
     gap: 1em;
     align-items: center;
+}
+
+.delete-btn {
+    padding: .25em .5em;
+    color: #EAE3D2;
+    background-color: #f12760;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 250ms;
+}
+
+.delete-btn:hover {
+    background-color: #C70039;
 }

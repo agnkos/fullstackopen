@@ -117,6 +117,26 @@ const App = () => {
       })
   }
 
+  const removeBlog = id => {
+    if (window.confirm('Do you really want to delete the blog?')) {
+      blogService
+        .remove(id)
+        .then(data => {
+          setBlogs(blogs.filter(blog => blog.id !== id))
+          setMessage('Blog deleted')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setErrorMessage(error.message)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    }
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -135,7 +155,7 @@ const App = () => {
       </Toggle>
       <div className='blogs-container'>
         {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} />
+          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} />
         )}
       </div>
     </div>
