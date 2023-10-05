@@ -21,7 +21,7 @@ const Blog = ({ blog, addLike, removeBlog }) => {
       <div style={showWhenVisible} className="blog-detail">
         <p className="blog-title">{blog.title} - {blog.author} <button onClick={toggleShowDetail}>hide</button></p>
         <p>{blog.url}</p>
-        <p>likes {blog.likes} <button onClick={() => addLike(blog.id)}>like</button></p>
+        <p>likes {blog.likes} <button onClick={() => addLike(blog.id)} className='like-btn'>like</button></p>
         <p>added by: {blog?.user?.username}</p>
         <button className="delete-btn" onClick={() => removeBlog(blog.id)}>delete blog</button>
       </div>

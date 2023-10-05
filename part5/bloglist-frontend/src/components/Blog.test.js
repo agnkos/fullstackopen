@@ -7,6 +7,7 @@ import Blog from './Blog'
 
 describe('<Blog />', () => {
   let container
+  const addLike = jest.fn()
 
   beforeEach(() => {
     const blog = {
@@ -15,7 +16,7 @@ describe('<Blog />', () => {
       url: 'www.frontend.com',
       likes: 42
     }
-    container = render(<Blog blog={blog} />).container
+    container = render(<Blog blog={blog} addLike={addLike} />).container
   })
 
   test('component renders only the title and the author by default', () => {
@@ -38,6 +39,15 @@ describe('<Blog />', () => {
 
     expect(blogElement).toHaveStyle('display:none')
     expect(blogDetail).toBeDefined()
+  })
+
+  test('when like button is clicked twice, the event handler is called twice', async () => {
+    const user = userEvent.setup()
+    const button = container.querySelector('.like-btn')
+
+    await user.dblClick(button)
+
+    expect(addLike.mock.calls).toHaveLength(2)
   })
 
 })
