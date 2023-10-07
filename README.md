@@ -14,6 +14,11 @@ React, JSON server, Axios
 
 #### Part 3
 Node.js, Express, nodemon, Postman, morgan, MongoDB, Mongoose, ESLint,
+[part 3 - link to the repository](https://github.com/agnkos/fullstackopen-part3)
 
 #### Part 4
 Node.js, Jest, Lodash, supertest, bcrypt, jsonwebtoken
+[part 4 - link to the repository](https://github.com/agnkos/blogs)
+
+### Part 5
+Testing React Apps - React Testing Library, Jest

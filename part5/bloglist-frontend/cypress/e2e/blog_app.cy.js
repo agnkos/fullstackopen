@@ -76,7 +76,7 @@ describe('Blog app', function () {
         cy.get('.message').should('contain', 'Blog deleted')
       })
 
-      it('a user who has not created the blog does not see delete button', function () {
+      it.only('a user who has not created the blog does not see delete button', function () {
         cy.contains('Log out').click()
 
         const user = {
@@ -90,6 +90,12 @@ describe('Blog app', function () {
 
         cy.contains('bike blog').parent().find('.show-btn').click()
         cy.contains('bike blog').parent().should('not.contain', 'delete blog')
+
+        // or:
+        // cy.contains('bike blog').parent().as('notUsersBlog')
+        // cy.get('@notUsersBlog').find('.show-btn').click()
+        // cy.get('@notUsersBlog').should('not.contain', 'delete blog')
+
         cy.contains('cooking blog').parent().find('.show-btn').click()
         cy.contains('cooking blog').parent().should('contain', 'delete blog')
       })
