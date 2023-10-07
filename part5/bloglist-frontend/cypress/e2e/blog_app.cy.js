@@ -45,7 +45,7 @@ describe('Blog app', function () {
       cy.login({ username: 'aga', password: 'Piotrek123' })
     })
 
-    it.only('A blog can be created', function () {
+    it('A blog can be created', function () {
       cy.contains('add blog').click()
       cy.get('.title-input').type('frontend blog')
       cy.get('.author-input').type('aga kos')
@@ -53,6 +53,22 @@ describe('Blog app', function () {
       cy.get('.add-btn').click()
 
       cy.get('.blogs-container').contains('www.frontend.blogspot.com')
+    })
+
+    it.only('user can like a blog', function () {
+      cy.contains('add blog').click()
+      // cy.get('.title-input').type('frontend blog')
+      // cy.get('.author-input').type('aga kos')
+      // cy.get('.url-input').type('www.frontend.blogspot.com')
+      // cy.get('.add-btn').click()
+
+      cy.createBlog({ author: 'aga kos', title: 'frontend blog', url: 'www.frontend.blogspot.com' })
+      cy.createBlog({ author: 'aga', title: 'bike blog', url: 'www.mybike.com' })
+
+      cy.contains('frontend blog').parent().find('.show-btn').click()
+      cy.contains('frontend blog').parent().find('.like-btn').click()
+      cy.get('.blog-likes').should('include.text', 'likes: 1')
+
     })
   })
 })
