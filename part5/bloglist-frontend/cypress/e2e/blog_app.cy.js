@@ -39,9 +39,6 @@ describe('Blog app', function () {
 
   describe('When logged in', function () {
     beforeEach(function () {
-      // cy.get('#username').type('aga')
-      // cy.get('#password').type('Piotrek123')
-      // cy.get('#login-button').click()
       cy.login({ username: 'aga', password: 'Piotrek123' })
     })
 
@@ -59,6 +56,7 @@ describe('Blog app', function () {
       beforeEach(function () {
         cy.createBlog({ author: 'aga kos', title: 'frontend blog', url: 'www.frontend.blogspot.com' })
         cy.createBlog({ author: 'aga', title: 'bike blog', url: 'www.mybike.com' })
+        cy.createBlog({ author: 'Wojtek', title: 'guitar blog', url: 'www.easyguitar.com' })
       })
 
       it('user can like a blog', function () {
@@ -76,7 +74,7 @@ describe('Blog app', function () {
         cy.get('.message').should('contain', 'Blog deleted')
       })
 
-      it.only('a user who has not created the blog does not see delete button', function () {
+      it('a user who has not created the blog does not see delete button', function () {
         cy.contains('Log out').click()
 
         const user = {
@@ -99,6 +97,20 @@ describe('Blog app', function () {
         cy.contains('cooking blog').parent().find('.show-btn').click()
         cy.contains('cooking blog').parent().should('contain', 'delete blog')
       })
+
+      it.only('blogs are ordered according to likes', function () {
+        cy.contains('guitar blog').parent().find('.show-btn').click()
+        cy.contains('guitar blog').parent().find('.like-btn').click()
+
+        cy.get('.blog-detail').eq(0).should('contain', 'guitar blog')
+        cy.contains('bike blog').parent().find('.show-btn').click()
+
+        for (let n = 0; n < 5; n++) {
+          cy.contains('bike blog').parent().find('.like-btn').click()
+        }
+        cy.get('.blog-detail').eq(0).should('contain', 'bike blog')
+      })
     })
+
   })
 })
