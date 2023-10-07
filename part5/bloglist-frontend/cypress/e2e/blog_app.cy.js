@@ -35,6 +35,24 @@ describe('Blog app', function () {
         .and('have.css', 'color', 'rgb(255, 0, 0)')
         .and('have.css', 'border-color', 'rgb(255, 0, 0)')
     })
+  })
 
+  describe('When logged in', function () {
+    beforeEach(function () {
+      // cy.get('#username').type('aga')
+      // cy.get('#password').type('Piotrek123')
+      // cy.get('#login-button').click()
+      cy.login({ username: 'aga', password: 'Piotrek123' })
+    })
+
+    it.only('A blog can be created', function () {
+      cy.contains('add blog').click()
+      cy.get('.title-input').type('frontend blog')
+      cy.get('.author-input').type('aga kos')
+      cy.get('.url-input').type('www.frontend.blogspot.com')
+      cy.get('.add-btn').click()
+
+      cy.get('.blogs-container').contains('www.frontend.blogspot.com')
+    })
   })
 })
