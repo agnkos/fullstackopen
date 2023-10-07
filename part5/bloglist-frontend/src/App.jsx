@@ -155,7 +155,7 @@ const App = () => {
       </Toggle>
       <div className='blogs-container'>
         {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} />
+          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} user={user} />
         )}
       </div>
     </div>

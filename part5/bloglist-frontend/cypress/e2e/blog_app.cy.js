@@ -55,7 +55,7 @@ describe('Blog app', function () {
       cy.get('.blogs-container').contains('www.frontend.blogspot.com')
     })
 
-    describe('several blogs exis', function () {
+    describe('several blogs exist', function () {
       beforeEach(function () {
         cy.createBlog({ author: 'aga kos', title: 'frontend blog', url: 'www.frontend.blogspot.com' })
         cy.createBlog({ author: 'aga', title: 'bike blog', url: 'www.mybike.com' })
@@ -76,7 +76,7 @@ describe('Blog app', function () {
         cy.get('.message').should('contain', 'Blog deleted')
       })
 
-      it('a user who has not created a blog cannot delete it', function () {
+      it('a user who has not created the blog does not see delete button', function () {
         cy.contains('Log out').click()
 
         const user = {
@@ -86,14 +86,13 @@ describe('Blog app', function () {
         }
         cy.request('POST', 'http://localhost:5173/api/users', user)
         cy.login({ username: 'piotr', password: 'Aga123' })
-        cy.contains('bike blog').parent().find('.show-btn').click()
-        cy.contains('bike blog').parent().find('.delete-btn').click()
+        cy.createBlog({ author: 'piooootras', title: 'cooking blog', url: 'www.cakegood.blogspot.com' })
 
-        cy.get('.blogs-container').should('contain', 'bike blog')
-        cy.get('.error').should('contain', 'Request failed with status code 401')
+        cy.contains('bike blog').parent().find('.show-btn').click()
+        cy.contains('bike blog').parent().should('not.contain', 'delete blog')
+        cy.contains('cooking blog').parent().find('.show-btn').click()
+        cy.contains('cooking blog').parent().should('contain', 'delete blog')
       })
     })
-
-
   })
 })
