@@ -21,4 +21,7 @@ Node.js, Jest, Lodash, supertest, bcrypt, jsonwebtoken <br>
 [part 4 - link to the repository](https://github.com/agnkos/blogs)
 
 ### Part 5
-Testing React Apps - React Testing Library, Jest
+Testing React Apps - React Testing Library, Jest, Cypress
+
+### Part 6
+Advanced State Management - Redux, React Query, useReducer, context
