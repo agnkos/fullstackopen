@@ -5,15 +5,17 @@ const AnecdoteList = () => {
 
     const dispatch = useDispatch()
 
-    const anecdotes = useSelector((state) => {
-        if (state.filter !== '') {
-            return state.anecdotes.filter(a => a.content.toLowerCase().includes(state.filter.toLowerCase()))
-        } else return state.anecdotes
+    console.log()
+    const anecdotes = useSelector(({ filter, anecdotes }) => {
+        if (filter !== '') {
+            return anecdotes.filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
+        } else return anecdotes
     })
 
+    const anecdotesToShow = [...anecdotes]
 
     return (
-        <div>  {anecdotes.sort((a, b) => b.votes - a.votes).map(anecdote =>
+        <div>  {anecdotesToShow.sort((a, b) => b.votes - a.votes).map(anecdote =>
             <div key={anecdote.id}>
                 <div>
                     {anecdote.content}
