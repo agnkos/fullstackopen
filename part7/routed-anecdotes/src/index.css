@@ -13,15 +13,16 @@
     padding: 1rem;
 }
 
+.menu {
+    margin-bottom: 1.5rem;
+}
+
 h1,
-.menu,
-p {
+p,
+h2 {
     margin-bottom: 1rem;
 }
 
-h2 {
-    margin-bottom: .5rem;
-}
 
 ul {
     padding: 0 1rem;
