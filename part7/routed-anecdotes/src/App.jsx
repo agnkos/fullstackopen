@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, Route, Routes, useMatch } from 'react-router-dom'
+import { Link, Route, Routes, useMatch, useNavigate } from 'react-router-dom'
 import './index.css'
 
 const Menu = () => {
@@ -57,6 +57,7 @@ const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
+  const navigate = useNavigate()
 
 
   const handleSubmit = (e) => {
@@ -67,6 +68,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    navigate('/')
   }
 
   return (
@@ -105,6 +107,14 @@ const Anecdote = ({ anecdote }) => {
   )
 }
 
+const Notification = ({ notification }) => {
+  return (
+    <p className='notification'>
+      {notification}
+    </p>
+  )
+}
+
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
     {
@@ -122,15 +132,19 @@ const App = () => {
       id: 2
     }
   ])
+  const [notification, setNotification] = useState('')
 
   const match = useMatch('anecdotes/:id')
   const anecdote = match ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id)) : null
 
-  const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`A new anecdote '${anecdote.content}' was created!`)
+    setTimeout(() => {
+      setNotification('')
+    }, 5000)
   }
 
   const anecdoteById = (id) =>
@@ -151,6 +165,8 @@ const App = () => {
     <div className='flex'>
       <h1 className='title'>Software anecdotes</h1>
       <Menu />
+      {/* {notification !== '' ? (<p>{notification}</p>) : null} */}
+      {notification && <Notification notification={notification} />}
       <Routes>
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/create' element={<CreateNew addNew={addNew} />} />

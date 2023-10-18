@@ -28,6 +28,10 @@ ul {
     padding: 0 1rem;
 }
 
+.notification {
+    font-style: italic;
+}
+
 .footer {
     margin-top: auto;
 }
