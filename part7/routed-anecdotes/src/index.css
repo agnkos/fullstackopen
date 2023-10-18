@@ -1,0 +1,32 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+h1,
+.menu,
+p {
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-bottom: .5rem;
+}
+
+ul {
+    padding: 0 1rem;
+}
+
+.footer {
+    margin-top: auto;
+}
