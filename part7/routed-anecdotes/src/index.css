@@ -32,6 +32,30 @@ ul {
     font-style: italic;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+    align-items: start;
+    width: 300px;
+}
+
+.form input {
+    margin-left: .5em;
+}
+
+.form div:last-of-type {
+    margin-top: .5em;
+}
+
+.btn {
+    padding: .1em .5em;
+}
+
+.reset-btn {
+    margin-left: .5em;
+}
+
 .footer {
     margin-top: auto;
 }
