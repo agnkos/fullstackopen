@@ -1,0 +1,106 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "custom-hooks are awesome!"
+    },
+    {
+      "id": 2,
+      "content": "best feature ever <3"
+    },
+    {
+      "content": "gdfgfdgfdg",
+      "id": 3
+    },
+    {
+      "content": "bla blablabla",
+      "id": 4
+    },
+    {
+      "content": "bla blablabla",
+      "id": 5
+    },
+    {
+      "content": "bla blablabla",
+      "id": 6
+    },
+    {
+      "content": "bla blablabla",
+      "id": 7
+    },
+    {
+      "content": "bla blablabla",
+      "id": 8
+    },
+    {
+      "content": "bla blablabla",
+      "id": 9
+    },
+    {
+      "content": "dfsdfsdfsdf",
+      "id": 10
+    }
+  ],
+  "persons": [
+    {
+      "id": 1,
+      "name": "mluukkai",
+      "number": "040-5483923"
+    },
+    {
+      "id": 2,
+      "name": "hellas",
+      "number": "012-123123"
+    },
+    {
+      "name": "aga",
+      "number": "1234567",
+      "id": 3
+    },
+    {
+      "name": "aga",
+      "number": "1234567",
+      "id": 4
+    },
+    {
+      "name": "aga",
+      "number": "1234567",
+      "id": 5
+    },
+    {
+      "name": "piotrek",
+      "number": "12345678",
+      "id": 6
+    },
+    {
+      "name": "piotrek",
+      "number": "12345678",
+      "id": 7
+    },
+    {
+      "name": "krzys",
+      "number": "33334444",
+      "id": 8
+    },
+    {
+      "name": "krzys",
+      "number": "33334444",
+      "id": 9
+    },
+    {
+      "name": "krzys",
+      "number": "33334444",
+      "id": 10
+    },
+    {
+      "name": "krzys",
+      "number": "33334444",
+      "id": 11
+    },
+    {
+      "name": "tomek",
+      "number": "343434",
+      "id": 12
+    }
+  ]
+}
