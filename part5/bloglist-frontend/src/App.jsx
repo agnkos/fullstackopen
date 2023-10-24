@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
+import blogs from './services/blogs'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -31,7 +32,13 @@ const App = () => {
       setUser(user)
       blogService.setToken(user.token)
     }
+    // getAllBlogs()
   }, [])
+
+  // const getAllBlogs = async () => {
+  //   const allblogs = await blogService.getAll()
+  //   setBlogs(allblogs)
+  // }
 
   const handleUsernameChange = ({ target }) => {
     setUsername(target.value)

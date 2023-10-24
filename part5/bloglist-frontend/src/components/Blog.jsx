@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 
 import { useState } from 'react'
 
 const Blog = ({ blog, addLike, removeBlog, user }) => {
 
   const [showDetail, setShowDetail] = useState(false)
+
+  useEffect(() => {
+    console.log(blog)
+  }, [])
 
   const toggleShowDetail = () => {
     setShowDetail(!showDetail)
