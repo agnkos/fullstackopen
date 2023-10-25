@@ -6,21 +6,24 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
+import { initializeBlogs, createBlog } from './reducers/blogReducer'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  // const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const dispatch = useDispatch()
 
   const blogFormRef = useRef()
+  const blogsFromState = useSelector(state => state.blogs)
+  const blogs = [...blogsFromState]
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -75,31 +78,8 @@ const App = () => {
   }
 
   const addBlog = (newBlog) => {
-
     blogFormRef.current.toggleVisibility()
-
-    blogService
-      .create(newBlog)
-      .then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog))
-        dispatch(setNotification({ content: `a new blog ${newBlog.title} by ${newBlog.author} was added.`, error: false }, 5))
-      })
-      .catch((error) => console.log('error', error.response.data.error))
-  }
-
-  const addLike = (id) => {
-    const blog = blogs.find((blog) => blog.id === id)
-    const likedBlog = { ...blog, likes: blog.likes + 1 }
-
-    blogService
-      .update(id, likedBlog)
-      .then(() => {
-        setBlogs(blogs.map((blog) => (blog.id !== id ? blog : likedBlog)))
-      })
-      .catch(() => {
-        dispatch(setNotification({ content: `there is no blog ${blog.title}`, error: true }, 5))
-        setBlogs(blogs.filter((blog) => blog.id !== id))
-      })
+    dispatch(createBlog(newBlog))
   }
 
   const removeBlog = (id) => {
@@ -115,7 +95,6 @@ const App = () => {
         })
     }
   }
-
 
   return (
     <div>
@@ -135,7 +114,7 @@ const App = () => {
         {blogs
           .sort((a, b) => b.likes - a.likes)
           .map((blog) => (
-            <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} user={user} />
+            <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
           ))}
       </div>
     </div>

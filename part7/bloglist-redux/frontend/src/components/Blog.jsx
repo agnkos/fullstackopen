@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
-
 import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { likeBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog, addLike, removeBlog, user }) => {
   const [showDetail, setShowDetail] = useState(false)
+  const dispatch = useDispatch()
 
   const toggleShowDetail = () => {
     setShowDetail(!showDetail)
@@ -27,7 +29,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
         <p>{blog.url}</p>
         <p className="blog-likes">
           likes: {blog.likes}{' '}
-          <button onClick={() => addLike(blog.id)} className="like-btn">
+          <button onClick={() => dispatch(likeBlog(blog.id))} className="like-btn">
             like
           </button>
         </p>
@@ -44,7 +46,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  addLike: PropTypes.func.isRequired,
+  // addLike: PropTypes.func.isRequired,
   removeBlog: PropTypes.func.isRequired,
 }
 
