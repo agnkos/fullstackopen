@@ -8,15 +8,14 @@ import Notification from './components/Notification'
 import Toggle from './components/Toggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
-import { initializeBlogs, createBlog } from './reducers/blogReducer'
+import { initializeBlogs, createBlog, deleteBlog } from './reducers/blogReducer'
 
 const App = () => {
-  // const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  
   const dispatch = useDispatch()
-
   const blogFormRef = useRef()
   const blogsFromState = useSelector(state => state.blogs)
   const blogs = [...blogsFromState]
@@ -84,15 +83,7 @@ const App = () => {
 
   const removeBlog = (id) => {
     if (window.confirm('Do you really want to delete the blog?')) {
-      blogService
-        .remove(id)
-        .then(() => {
-          setBlogs(blogs.filter((blog) => blog.id !== id))
-          dispatch(setNotification({ content: 'Blog deleted', error: false }, 5))
-        })
-        .catch((error) => {
-          dispatch(setNotification({ content: `${error.message}`, error: true }, 5))
-        })
+      dispatch(deleteBlog(id))
     }
   }
 

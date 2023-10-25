@@ -53,4 +53,18 @@ export const likeBlog = id => {
     }
 }
 
+export const deleteBlog = id => {
+    return async (dispatch, getState) => {
+        const { blogs } = getState()
+        try {
+            await blogService.remove(id)
+            const updatedBlogs = blogs.filter(blog => blog.id !== id)
+            dispatch(setAllBlogs(updatedBlogs))
+            dispatch(setNotification({ content: 'Blog deleted', error: false }, 5))
+        } catch (error) {
+            dispatch(setNotification({ content: `Failed to delete the blog`, error: true }, 5))
+        }
+    }
+}
+
 export default blogSlice.reducer
