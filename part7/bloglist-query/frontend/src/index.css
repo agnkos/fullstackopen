@@ -1,0 +1,95 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 1em;
+    font-family: Arial;
+}
+
+p {
+    /* margin: 0; */
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.bolded {
+    font-weight: bold;
+}
+
+.form {
+    max-width: 250px;
+}
+
+.form-element {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5em;
+}
+
+.add-btn {
+    margin-bottom: .5em;
+}
+
+.message,
+.error {
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: .75em;
+    margin-bottom: .75em;
+}
+
+.message {
+    color: green;
+    border: 1px solid green;
+}
+
+.error {
+    color: red;
+    border: 1px solid red;
+}
+
+.blogs-container {
+    margin-top: 1em;
+}
+
+.blog-element {
+    margin-bottom: .5em;
+}
+
+.blog-detail {
+    padding: .5em;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 1em 0;
+}
+
+.blog-detail>p {
+    margin: .25em;
+}
+
+.blog-title {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.delete-btn {
+    padding: .25em .5em;
+    color: #EAE3D2;
+    background-color: #f12760;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 250ms;
+}
+
+.delete-btn:hover {
+    background-color: #C70039;
+}
