@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
+import { useContext, useEffect } from 'react'
+import NotificationContext from '../NotificationContext'
 
-const Notification = ({ message, errorMessage }) => {
+const Notification = () => {
 
-  return (
-    <div className={`${message ? 'message' : errorMessage ? 'error' : ''}`}>
-      {message || errorMessage}
-    </div>
-  )
-}
+  const { notification } = useContext(NotificationContext)
 
-Notification.propTypes = {
-  message: PropTypes.string,
-  errorMessage: PropTypes.string
+  if (notification === undefined) return null
+
+  else
+    return (
+      <div className={`${notification?.error ? 'error' : notification ? 'message' : ''}`}>
+        {notification.content}
+      </div>
+    )
 }
 
 export default Notification

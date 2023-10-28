@@ -1,18 +1,30 @@
-import { useState, userRef } from 'react'
+import { useState, userRef, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { createBlog } from '../requests'
+import NotificationContext from '../NotificationContext'
 
 const BlogForm = ({ hideForm }) => {
 
   const [newBlog, setNewBlog] = useState({ 'title': '', 'author': '', 'url': '' })
   const queryClient = useQueryClient()
+  const { notificationDispatch } = useContext(NotificationContext)
 
   const newBlogMutation = useMutation({
     mutationFn: createBlog,
     onSuccess: (blog) => {
       const blogs = queryClient.getQueryData(['blogs'])
       queryClient.setQueryData(['blogs'], blogs.concat(blog))
+      notificationDispatch({ type: 'SHOW', payload: { content: `New blog '${blog.title}' added.`, error: false } })
+      setTimeout(() => {
+        notificationDispatch({ type: 'NULL' })
+      }, 5000)
+    },
+    onError: () => {
+      notificationDispatch({ type: 'SHOW', payload: { content: 'Error occurred', error: true } })
+      setTimeout(() => {
+        notificationDispatch({ type: 'NULL' })
+      }, 5000)
     }
   })
 
@@ -68,7 +80,7 @@ const BlogForm = ({ hideForm }) => {
 }
 
 BlogForm.propTypes = {
-  addBlog: PropTypes.func.isRequired
+  hideForm: PropTypes.func.isRequired
 }
 
 export default BlogForm
