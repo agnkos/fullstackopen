@@ -9,14 +9,13 @@ import Toggle from './components/Toggle'
 import { useQuery } from '@tanstack/react-query'
 import { getBlogs } from './requests'
 import NotificationContext from './NotificationContext'
+import UserContext from './UserContext'
 
 const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
-  const [message, setMessage] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
   const { notificationDispatch } = useContext(NotificationContext)
+  const { user, userDispatch } = useContext(UserContext)
   const blogFormRef = useRef()
 
   const result = useQuery({
@@ -24,16 +23,20 @@ const App = () => {
     queryFn: getBlogs,
     refetchOnWindowFocus: false
   })
-  console.log(JSON.parse(JSON.stringify(result)))
+  // console.log(JSON.parse(JSON.stringify(result)))
+
+  // useEffect(() => {
+  //   console.log('context', user)
+  // }, [user])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      userDispatch({ type: 'LOGIN', payload: user })
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [userDispatch])
 
   if (result.isLoading) {
     return <div>loading data...</div>
@@ -61,9 +64,13 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(user)
       )
       blogService.setToken(user.token)
-      setUser(user)
+      userDispatch({ type: 'LOGIN', payload: user })
       setUsername('')
       setPassword('')
+      notificationDispatch({ type: 'SHOW', payload: { content: `${user.username} has logged in`, error: false } })
+      setTimeout(() => {
+        notificationDispatch({ type: 'NULL' })
+      }, 5000)
     } catch (exception) {
       notificationDispatch({ type: 'SHOW', payload: { content: 'Wrong credentials', error: true } })
       setTimeout(() => {
@@ -74,7 +81,7 @@ const App = () => {
 
   const logOut = () => {
     window.localStorage.removeItem('loggedBlogappUser')
-    setUser(null)
+    userDispatch({ type: 'LOGOUT' })
   }
 
   if (user === null) {
@@ -96,30 +103,10 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
   }
 
-  const removeBlog = id => {
-    if (window.confirm('Do you really want to delete the blog?')) {
-      blogService
-        .remove(id)
-        .then(() => {
-          // setBlogs(blogs.filter(blog => blog.id !== id))
-          setMessage('Blog deleted')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-        .catch(error => {
-          setErrorMessage(error.message)
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000)
-        })
-    }
-  }
-
   return (
     <div>
       <h2>blogs</h2>
-      <Notification message={message} errorMessage={errorMessage} />
+      <Notification />
       <div className='flex'>
         <p>
           <span className='bolded'>{user.name} </span>
@@ -129,13 +116,12 @@ const App = () => {
       </div>
       <Toggle buttonLabel="add blog" ref={blogFormRef}>
         <BlogForm
-          // addBlog={addBlog}
           hideForm={hideForm}
         />
       </Toggle>
       <div className='blogs-container'>
         {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
+          <Blog key={blog.id} blog={blog} user={user} />
         )}
       </div>
     </div>
