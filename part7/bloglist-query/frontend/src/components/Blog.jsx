@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { useState, useContext } from 'react'
-import { updateBlog } from '../requests'
+import { updateBlog, removeBlog } from '../requests'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import NotificationContext from '../NotificationContext'
 
-const Blog = ({ blog, removeBlog, user }) => {
+const Blog = ({ blog, user }) => {
 
   const [showDetail, setShowDetail] = useState(false)
   const queryClient = useQueryClient()
@@ -28,8 +28,36 @@ const Blog = ({ blog, removeBlog, user }) => {
     }
   })
 
-  const addLike = (blog) => {
+  const removeBlogMutation = useMutation({
+    mutationFn: removeBlog,
+    onMutate: async ({ id }) => {
+      await queryClient.cancelQueries({ queryKey: ['blogs'] })
+      queryClient.setQueryData(['blogs'], blogs => blogs.filter(blog => blog.id !== id))
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] })
+      notificationDispatch({ type: 'SHOW', payload: { content: 'The blog was deleted', error: false } })
+      setTimeout(() => {
+        notificationDispatch({ type: 'NULL' })
+      }, 5000)
+    },
+    onError: () => {
+      notificationDispatch({ type: 'SHOW', payload: { content: 'Error occurred', error: true } })
+      setTimeout(() => {
+        notificationDispatch({ type: 'NULL' })
+      }, 5000)
+    }
+  })
+
+  const addLike = blog => {
     updateBlogMutation.mutate({ ...blog, likes: blog.likes + 1 })
+  }
+
+  const deleteBlog = id => {
+    if (window.confirm('Do you really want to delete the blog?')) {
+      console.log(id)
+      removeBlogMutation.mutate(id)
+    }
   }
 
   const toggleShowDetail = () => {
@@ -49,7 +77,7 @@ const Blog = ({ blog, removeBlog, user }) => {
         <p>{blog.url}</p>
         <p className='blog-likes'>likes: {blog.likes} <button onClick={() => addLike(blog)} className='like-btn'>like</button></p>
         <p>added by: {blog?.user?.username}</p>
-        {user.username === blog?.user?.username && <button className="delete-btn" onClick={() => removeBlog(blog.id)}>delete blog</button>}
+        {user.username === blog?.user?.username && <button className="delete-btn" onClick={() => deleteBlog(blog.id)}>delete blog</button>}
       </div>
     </div>
   )

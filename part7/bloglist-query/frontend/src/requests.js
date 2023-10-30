@@ -18,6 +18,18 @@ export const createBlog = newBlog => {
   return axios.post(baseUrl, newBlog, config).then(res => res.data)
 }
 
-export const updateBlog = (newObject) => axios
+export const updateBlog = newObject => axios
   .put(`${baseUrl}/${newObject.id}`, newObject)
   .then(res => res.data)
+
+export const removeBlog = id => {
+  const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+  if (loggedUserJSON) {
+    const user = JSON.parse(loggedUserJSON)
+    token = `Bearer ${user.token}`
+  }
+  const config = {
+    headers: { Authorization: token },
+  }
+  return axios.delete(`${baseUrl}/${id}`, config).then(res => res.data)
+}
