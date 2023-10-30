@@ -1,0 +1,147 @@
+GET http://localhost:3003/api/blogs
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+# {
+#     "title": "code with Aga",
+#     "author": "Agnieszka Kosiedowska",
+#     "url": "www.codewithaga",
+#     "likes": "5"
+# }
+
+# {
+#     "title": "sewing blog",
+#     "author": "Agnieszka Kosiedowska",
+#     "url": "www.sew.com",
+#     "likes": "7"
+# }
+
+# {
+#     "title": "frontend blog",
+#     "author": "Agnieszka Kosiedowska",
+#     "url": "www.front.com",
+#     "likes": "34"
+# }
+
+{
+    "title": "learn piano blog",
+    "author": "Piotr K",
+    "url": "www.piano.blogspot.com",
+    "likes": "100"
+}
+
+###
+
+DELETE  http://localhost:3003/api/blogs/650c6cd0ee49c8002bd2f740
+
+###
+
+PUT http://localhost:3003/api/blogs/65004b01d396c4cbebf5bc71
+Content-Type: application/json
+
+ {
+    "title": "code with Aga",
+    "author": "Agnieszka Kosiedowska",
+    "url": "www.codewithaga",
+    "likes": "99",
+    "id": "65004b01d396c4cbebf5bc71"
+  }
+
+###
+GET http://localhost:3003/api/users
+
+###
+POST  http://localhost:3003/api/users
+Content-type: application/json
+
+# {
+#     "username": "aga",
+#     "name": "aga",
+#     "password": "Piotrek85"
+# }
+
+{
+    "username": "piotrek",
+    "name": "piotrek",
+    "password": "Aga85"
+}
+
+### 
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+# {
+#     "title": "frontend blog",
+#     "author": "Agnieszka Kosiedowska",
+#     "url": "www.front.com",
+#     "likes": 34,
+#     "id": "65019603c0b291844ce46e95",
+#     "userId": "650f0013e87cf8619251f63b"
+# }
+
+  {
+    "title": "learn piano blog",
+    "author": "Piotr K",
+    "url": "www.piano.blogspot.com",
+    "likes": 100,
+    "id": "6501995b5b84f8a8592582df",
+    "userId": "650f0043e87cf8619251f641"
+  }
+
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "aga",
+  "password": "Piotrek85"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFnYSIsImlkIjoiNjUwZjAwMTNlODdjZjg2MTkyNTFmNjNiIiwiaWF0IjoxNjk1NjQ0OTAzLCJleHAiOjE2OTU2NDg1MDN9.KdSiwEXFgIlLxCVnxazws7heJyvzRn-wCpMS_6mmwng
+
+{
+    "title": "cooking blog",
+    "author": "Piotr K",
+    "url": "www.mniam.blogspot.com",
+    "likes": 70,
+    "userId": "650f0043e87cf8619251f641"
+  }
+
+###
+PUT http://localhost:3003/api/blogs/6510662372165c140181ec68
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFnYSIsImlkIjoiNjUwZjAwMTNlODdjZjg2MTkyNTFmNjNiIiwiaWF0IjoxNjk1NjI2ODg5fQ.DXljqoZ9pPmu8o_3r7NKOk2dWXbUTZeXUVGRrtyaBO8
+
+  {
+    "title": "learn piano blog",
+    "author": "Piotr K",
+    "url": "www.piano.blogspot.com",
+    "likes": 108,
+    "user": {
+      "username": "piotrek",
+      "name": "piotrek",
+      "id": "650f0043e87cf8619251f641"
+    },
+    "id": "6510662372165c140181ec68"
+  }
+
+###
+DELETE  http://localhost:3003/api/blogs/6515637c4e161ef90f1da12b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFnYSIsImlkIjoiNjUwZjAwMTNlODdjZjg2MTkyNTFmNjNiIiwiaWF0IjoxNjk1NjI2ODg5fQ.DXljqoZ9pPmu8o_3r7NKOk2dWXbUTZeXUVGRrtyaBO8
+
+###
+DELETE  http://localhost:3003/api/blogs/dfsdfsdf
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFnYSIsImlkIjoiNjUwZjAwMTNlODdjZjg2MTkyNTFmNjNiIiwiaWF0IjoxNjk1NjI2ODg5fQ.DXljqoZ9pPmu8o_3r7NKOk2dWXbUTZeXUVGRrtyaBO8
+
+###
+DELETE  http://localhost:3003/api/blogs/dfsdfsdf
+Content-Type: application/json
+Authorization: Bearer 123434

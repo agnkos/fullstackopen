@@ -19,7 +19,8 @@ const App = () => {
   const blogFormRef = useRef()
   const blogsFromState = useSelector(state => state.blogs)
   const blogs = [...blogsFromState]
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.loggedUser)
+  console.log(user)
 
   useEffect(() => {
     dispatch(initializeBlogs())
