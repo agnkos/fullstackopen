@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useMatch } from 'react-router-dom'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -7,11 +7,13 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
-import Users from './routes/Users'
+import UsersList from './routes/UsersList'
+import User from './routes/User'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs, createBlog, deleteBlog } from './reducers/blogReducer'
 import { setLoggedUser } from './reducers/loggedUserReducer'
+import { initializeUsers } from './reducers/usersReducer'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -22,7 +24,6 @@ const App = () => {
   const blogsFromState = useSelector(state => state.blogs)
   const blogs = [...blogsFromState]
   const user = useSelector(state => state.loggedUser)
-  console.log(user)
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -92,33 +93,34 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <div>
-        <h2>blogs</h2>
-        <Notification />
-        <div className="flex">
-          <p>
-            <span className="bolded">{user.name} </span>
-            logged in
-          </p>
-          <button onClick={logOut}>Log out</button>
-        </div>
-        <Toggle buttonLabel="add blog" ref={blogFormRef}>
-          <BlogForm addBlog={addBlog} />
-        </Toggle>
-        <div className="blogs-container">
-          {blogs
-            .sort((a, b) => b.likes - a.likes)
-            .map((blog) => (
-              <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
-            ))}
-        </div>
-
-        <Routes>
-          <Route path='/users' element={<Users />} />
-        </Routes>
+    // <Router>
+    <div>
+      <h2>blogs</h2>
+      <Notification />
+      <div className="flex">
+        <p>
+          <span className="bolded">{user.name} </span>
+          logged in
+        </p>
+        <button onClick={logOut}>Log out</button>
       </div>
-    </Router>
+      <Toggle buttonLabel="add blog" ref={blogFormRef}>
+        <BlogForm addBlog={addBlog} />
+      </Toggle>
+      <div className="blogs-container">
+        {blogs
+          .sort((a, b) => b.likes - a.likes)
+          .map((blog) => (
+            <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
+          ))}
+      </div>
+
+      <Routes>
+        <Route path='/users' element={<UsersList />} />
+        <Route path='/users/:id' element={<User />} />
+      </Routes>
+    </div>
+    // </Router>
   )
 }
 
