@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
@@ -81,6 +81,10 @@ const App = () => {
       <h2>blogs</h2>
       <Notification />
       <div className="flex">
+        <div>
+          <NavLink to='/' className='menu-item'>Blogs</NavLink>
+          <NavLink to='/users' className='menu-item'>Users</NavLink>
+        </div>
         <p>
           <span className="bolded">{user.name} </span>
           logged in
