@@ -19,7 +19,8 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
         author: body.author,
         url: body.url,
         likes: body.likes || 0,
-        user: user.id
+        user: user.id,
+        comments: body.comments || []
     })
 
     if (body.title && body.url) {
@@ -33,6 +34,16 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
     } else response.status(400).end()
 })
 
+blogsRouter.post('/:id/comments', async (request, response) => {
+
+    const blog = await Blog.findById(request.params.id).populate('user', { username: 1, name: 1 })
+    const comment = request.body.comment
+    blog.comments.push(comment)
+    const commentedBlog = await blog.save()
+    response.status(201).json(commentedBlog)
+
+})
+
 blogsRouter.put('/:id', async (request, response, next) => {
     const body = request.body
 
@@ -42,7 +53,8 @@ blogsRouter.put('/:id', async (request, response, next) => {
         url: body.url,
         likes: body.likes,
         id: body.id,
-        user: body.user.id
+        user: body.user.id,
+        comments: body.comments || []
     }
 
     try {
