@@ -93,3 +93,7 @@ p {
 .delete-btn:hover {
   background-color: #c70039;
 }
+
+.like-btn {
+  margin-left: .5em;
+}
