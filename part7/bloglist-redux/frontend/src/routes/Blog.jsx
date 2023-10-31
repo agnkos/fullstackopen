@@ -43,6 +43,12 @@ const Blog = ({ user }) => {
                     delete blog
                 </button>
             )}
+            <h2>comments</h2>
+            <ul>
+                {blog.comments.map(comment => (
+                    <li key={comment}>{comment}</li>
+                ))}
+            </ul>
         </div>
     )
 }
