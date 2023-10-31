@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { initializeBlogs } from "../reducers/blogReducer"
 import { likeBlog, deleteBlog } from "../reducers/blogReducer"
 import { useParams, useNavigate } from "react-router-dom"
+import CommentForm from "../components/CommentForm"
 
 const Blog = ({ user }) => {
     const dispatch = useDispatch()
@@ -44,9 +45,10 @@ const Blog = ({ user }) => {
                 </button>
             )}
             <h2>comments</h2>
+            <CommentForm />
             <ul>
-                {blog.comments.map(comment => (
-                    <li key={comment}>{comment}</li>
+                {blog.comments.map((comment, index) => (
+                    <li key={`${comment}${index}`}>{comment}</li>
                 ))}
             </ul>
         </div>

@@ -78,7 +78,6 @@ const App = () => {
 
   return (
     <div>
-      <h2>blogs</h2>
       <Notification />
       <div className="flex">
         <div>
@@ -91,6 +90,7 @@ const App = () => {
         </p>
         <button onClick={logOut}>Log out</button>
       </div>
+      <h2>blogsapp</h2>
 
       <Routes>
         <Route path='/' element={<BlogList user={user} />} />
