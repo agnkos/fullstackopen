@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -6,6 +7,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Toggle from './components/Toggle'
+import Users from './routes/Users'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs, createBlog, deleteBlog } from './reducers/blogReducer'
@@ -90,27 +92,33 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h2>blogs</h2>
-      <Notification />
-      <div className="flex">
-        <p>
-          <span className="bolded">{user.name} </span>
-          logged in
-        </p>
-        <button onClick={logOut}>Log out</button>
+    <Router>
+      <div>
+        <h2>blogs</h2>
+        <Notification />
+        <div className="flex">
+          <p>
+            <span className="bolded">{user.name} </span>
+            logged in
+          </p>
+          <button onClick={logOut}>Log out</button>
+        </div>
+        <Toggle buttonLabel="add blog" ref={blogFormRef}>
+          <BlogForm addBlog={addBlog} />
+        </Toggle>
+        <div className="blogs-container">
+          {blogs
+            .sort((a, b) => b.likes - a.likes)
+            .map((blog) => (
+              <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
+            ))}
+        </div>
+
+        <Routes>
+          <Route path='/users' element={<Users />} />
+        </Routes>
       </div>
-      <Toggle buttonLabel="add blog" ref={blogFormRef}>
-        <BlogForm addBlog={addBlog} />
-      </Toggle>
-      <div className="blogs-container">
-        {blogs
-          .sort((a, b) => b.likes - a.likes)
-          .map((blog) => (
-            <Blog key={blog.id} blog={blog} removeBlog={removeBlog} user={user} />
-          ))}
-      </div>
-    </div>
+    </Router>
   )
 }
 
