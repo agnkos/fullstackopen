@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
@@ -26,7 +27,7 @@ loginRouter.post('/', async (request, response) => {
 
     const token = jwt.sign(
         userForToken,
-        process.env.SECRET,
+        `${process.env.SECRET}`,
         { expiresIn: 60 * 60 }
     )
 
