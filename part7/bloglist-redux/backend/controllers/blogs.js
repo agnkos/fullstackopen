@@ -38,6 +38,8 @@ blogsRouter.post('/:id/comments', async (request, response) => {
 
     const blog = await Blog.findById(request.params.id).populate('user', { username: 1, name: 1 })
     const comment = request.body.comment
+    // udefined: !!! request jest pusta
+    console.log('request', request.body)
     blog.comments.push(comment)
     const commentedBlog = await blog.save()
     response.status(201).json(commentedBlog)

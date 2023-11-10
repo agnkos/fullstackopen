@@ -70,10 +70,16 @@ Content-type: application/json
 #     "password": "Piotrek85"
 # }
 
+# {
+#     "username": "piotrek",
+#     "name": "piotrek",
+#     "password": "Aga85"
+# }
+
 {
-    "username": "piotrek",
-    "name": "piotrek",
-    "password": "Aga85"
+  "username": "Wojtek",
+  "name": "Wojtek",
+  "password": "fortnite"
 }
 
 ### 
