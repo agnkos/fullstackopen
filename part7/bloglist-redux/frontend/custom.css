@@ -1,17 +1,30 @@
-*,
+.users-table {
+  max-width: 750px;
+}
+
+.list {
+  max-width: 500px;
+}
+
+.login-form {
+  max-width: 500px;
+}
+ /* *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
+}  */
 
-body {
-  padding: 1em;
+/* body {
+  padding: 1em; 
   font-family: Arial;
-}
+  padding: 0;
+   margin: 0;
+} */
 
-p {
+/* p { */
   /* margin: 0; */
-}
+/* }
 
 .flex {
   display: flex;
@@ -100,4 +113,5 @@ p {
 
 .menu-item {
   margin-right: 1em;
-}
+} */ 
+

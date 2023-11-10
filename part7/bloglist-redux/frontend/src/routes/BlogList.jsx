@@ -2,8 +2,9 @@ import { useRef, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Toggle from "../components/Toggle"
 import BlogForm from "../components/BlogForm"
-import { initializeBlogs, createBlog} from "../reducers/blogReducer"
-import { Link } from "react-router-dom"
+import { initializeBlogs, createBlog } from "../reducers/blogReducer"
+import { ListGroup } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 
 const BlogList = () => {
@@ -27,17 +28,18 @@ const BlogList = () => {
             <Toggle buttonLabel="add blog" ref={blogFormRef}>
                 <BlogForm addBlog={addBlog} />
             </Toggle>
-            <div className="blogs-container">
+            <h2 className="mt-3">List of blogs</h2>
+            <ListGroup className="mt-2 col-lg-8 list">
                 {blogs
                     .sort((a, b) => b.likes - a.likes)
                     .map((blog) => (
-                        <div key={blog.id}>
-                            <Link to={`/blogs/${blog.id}`}>
-                                {blog.title} - {blog.author}
-                            </Link>
-                        </div>
+                        <ListGroup.Item key={blog.id} action variant="light">
+                            <LinkContainer to={`/blogs/${blog.id}`}>
+                                <a className="link-dark link-underline-opacity-0">{blog.title} - {blog.author}</a>
+                            </LinkContainer>
+                        </ListGroup.Item>
                     ))}
-            </div>
+            </ListGroup>
         </div>
     )
 }

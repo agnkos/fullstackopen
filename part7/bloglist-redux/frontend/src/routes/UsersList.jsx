@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { initializeUsers } from "../reducers/usersReducer"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { Table } from 'react-bootstrap'
 
 const Users = () => {
 
@@ -15,7 +16,7 @@ const Users = () => {
     return (
         <div>
             <h2>Users</h2>
-            <table>
+            <Table striped className="users-table">
                 <thead>
                     <tr>
                         <th>user name</th>
@@ -25,12 +26,12 @@ const Users = () => {
                 <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <td><Link to={`/users/${user.id}`}>{user.username}</Link></td>
+                            <td><Link to={`/users/${user.id}`} className="link-dark link-opacity-75 link-opacity-100-hover link-underline-opacity-25 link-underline-opacity-100-hover link-offset-2">{user.username}</Link></td>
                             <td>{user.blogs.length}</td>
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </Table>
         </div>
     )
 }

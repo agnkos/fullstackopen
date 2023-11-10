@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Form, Button } from 'react-bootstrap'
 
 const BlogForm = ({ addBlog }) => {
   const [newBlog, setNewBlog] = useState({ title: '', author: '', url: '' })
@@ -16,37 +17,36 @@ const BlogForm = ({ addBlog }) => {
 
   return (
     <div>
-      <h3>Add new blog</h3>
-      <form onSubmit={addNewBlog} className="form">
-        <div className="form-element">
-          title:
-          <input
+      <Form onSubmit={addNewBlog}>
+        <Form.Group>
+          <Form.Label className='mb-0'>title</Form.Label>
+          <Form.Control
             type="text"
             value={newBlog.title || ''}
             name="title"
             onChange={handleBlogChange}
-            className="title-input"
+            className="mb-1"
           />
-        </div>
-        <div className="form-element">
-          author:
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label className='mb-0'>author</Form.Label>
+          <Form.Control
             type="text"
             value={newBlog.author || ''}
             name="author"
             onChange={handleBlogChange}
-            className="author-input"
+            className="mb-1"
           />
-        </div>
-        <div className="form-element">
-          url:
-          <input type="text" value={newBlog.url || ''} name="url" onChange={handleBlogChange} className="url-input" />
-        </div>
-        <button type="submit" className="add-btn">
+        </Form.Group>
+        <Form.Group className="form-element">
+          <Form.Label className='mb-0'>url</Form.Label>
+          <Form.Control type="text" value={newBlog.url || ''} name="url" onChange={handleBlogChange} className="" />
+        </Form.Group>
+        <Button type="submit" variant='success' className='mt-3 mb-2'>
           add
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </div >
   )
 }
 

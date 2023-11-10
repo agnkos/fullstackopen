@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-
 import { useState, forwardRef, useImperativeHandle } from 'react'
+import Button from 'react-bootstrap/Button'
 
 const Toggle = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false)
@@ -21,11 +21,14 @@ const Toggle = forwardRef((props, ref) => {
   return (
     <div>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+        <Button onClick={toggleVisibility} variant='info' className='text-white'>{props.buttonLabel}</Button>
       </div>
       <div style={showWhenVisible}>
+        <div className='d-flex align-items-center gap-3'> 
+          <h3>Add new blog</h3>
+          <Button onClick={toggleVisibility} variant='warning' className='text-white'>cancel</Button>
+        </div>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
       </div>
     </div>
   )

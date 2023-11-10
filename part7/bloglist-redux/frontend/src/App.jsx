@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setLoggedUser } from './reducers/loggedUserReducer'
+import Navigation from './components/Navigation'
+import Container from 'react-bootstrap/esm/Container'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -77,27 +79,19 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='position-relative'>
       <Notification />
-      <div className="flex">
-        <div>
-          <NavLink to='/' className='menu-item'>Blogs</NavLink>
-          <NavLink to='/users' className='menu-item'>Users</NavLink>
-        </div>
-        <p>
-          <span className="bolded">{user.name} </span>
-          logged in
-        </p>
-        <button onClick={logOut}>Log out</button>
-      </div>
-      <h2>blogsapp</h2>
 
-      <Routes>
-        <Route path='/' element={<BlogList user={user} />} />
-        <Route path='blogs/:id' element={<Blog user={user} />} />
-        <Route path='/users' element={<UsersList />} />
-        <Route path='/users/:id' element={<User />} />
-      </Routes>
+      <Navigation user={user} logout={logOut} />
+
+      <Container className='pt-4 px-4 px-sm-2'>
+        <Routes>
+          <Route path='/' element={<BlogList user={user} />} />
+          <Route path='blogs/:id' element={<Blog user={user} />} />
+          <Route path='/users' element={<UsersList />} />
+          <Route path='/users/:id' element={<User />} />
+        </Routes>
+      </Container>
     </div>
   )
 }
