@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { likeBlog } from '../reducers/blogReducer'
 
-const Blog = ({ blog, addLike, removeBlog, user }) => {
+const Blog = ({ blog, removeBlog, user }) => {
   const [showDetail, setShowDetail] = useState(false)
   const dispatch = useDispatch()
 
@@ -46,7 +46,6 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  // addLike: PropTypes.func.isRequired,
   removeBlog: PropTypes.func.isRequired,
 }
 
