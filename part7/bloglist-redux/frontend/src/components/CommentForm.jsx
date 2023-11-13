@@ -20,11 +20,6 @@ const CommentForm = () => {
         setNewComment('')
     }
 
-    useEffect(() => {
-        console.log(newComment)
-    }, [newComment])
-
-
     return (
         <Form onSubmit={addNewComment} >
             <Form.Group className="d-flex gap-2 flex-column flex-sm-row">
