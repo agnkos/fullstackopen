@@ -2,6 +2,10 @@
 
 ## [Link to the deployed app](https://blogapp-f7e0.onrender.com/) <br>
 
+## test the app
+username: Rico
+password: penguins
+
 ### Project description:
 - simple app for storing blog links, Fullstackopen course exercise
 - app elements and functions: login, adding blogs, deleting only by the user who added the blog, likes, comments
@@ -22,6 +26,7 @@
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
 
-### Project's screenshot
+### Project's screenshots
 
-<img src='./Screenshot_1.jpg' alt="app screenshot" title="app screenshot" style='width: 500px; margin: 10px;'> 
+<img src='./Screenshot_1.jpg' alt="app screenshot" title="app screenshot" style='width: 700px; margin: 10px;'> 
+<img src='./Screenshot_3.jpg' alt="app screenshot" title="app screenshot" style='width: 700px; margin: 10px;'> 
