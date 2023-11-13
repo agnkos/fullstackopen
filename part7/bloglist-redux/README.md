@@ -22,4 +22,4 @@
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
 
-![project image](Screenashot_1.jpg)
+<img src='./Screenshot_1.jpg' alt="app screenshot" title="app screenshot" style='width: 300px; margin: 10px;'> 
