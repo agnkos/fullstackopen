@@ -26,14 +26,13 @@ const User = () => {
             <h3>added blogs:</h3>
             <ListGroup className="list">
                 {user.blogs.map(blog => (
-                    <ListGroup.Item
-                        action
-                        variant='light'
-                        key={blog.id}>
-                        <LinkContainer to={`/blogs/${blog.id}`}>
-                            <a className="link-dark link-underline-opacity-0"> {blog.title}</a>
-                        </LinkContainer>
-                    </ListGroup.Item>
+                    <LinkContainer to={`/blogs/${blog.id}`} key={blog.id}>
+                        <ListGroup.Item
+                            action
+                            variant='light'>
+                            {blog.title}
+                        </ListGroup.Item>
+                    </LinkContainer>
                 ))}
             </ListGroup>
         </div>

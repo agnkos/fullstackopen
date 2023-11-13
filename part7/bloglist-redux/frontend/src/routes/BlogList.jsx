@@ -33,9 +33,9 @@ const BlogList = () => {
                 {blogs
                     .sort((a, b) => b.likes - a.likes)
                     .map((blog) => (
-                        <LinkContainer to={`/blogs/${blog.id}`}>
-                            <ListGroup.Item key={blog.id} action variant="light">
-                                <a className="link-dark link-underline-opacity-0">{blog.title} - {blog.author}</a>
+                        <LinkContainer to={`/blogs/${blog.id}`} key={blog.id}>
+                            <ListGroup.Item action variant="light">
+                                {blog.title} - {blog.author}
                             </ListGroup.Item>
                         </LinkContainer>
                     ))}
