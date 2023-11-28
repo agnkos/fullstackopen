@@ -91,6 +91,13 @@ let books = [
         id: "afa5de04-344d-11e9-a414-719c6709cf3e",
         genres: ['classic', 'revolution']
     },
+    {
+        title: 'The Demon 2',
+        published: 1872,
+        author: 'Fyodor Dostoevsky',
+        id: "afa5de04-344d-11e9-a414-719c6709cf3e",
+        genres: ['revolution']
+    },
 ]
 
 /*
@@ -115,7 +122,7 @@ const typeDefs = `
   type Query {
    bookCount: Int
    authorCount: Int
-   allBooks(author: String): [Book]
+   allBooks(author: String, genre: String): [Book]
    allAuthors: [Author]
   }
 `
@@ -125,10 +132,18 @@ const resolvers = {
         bookCount: () => books.length,
         authorCount: () => authors.length,
         allBooks: (root, args) => {
-            if (!args.author) {
+            if (!args) {
                 return books
             }
-            return books.filter(book => book.author === args.author)
+            if (args.author && !args.genre) {
+                return books.filter(book => book.author === args.author)
+            }
+            if (args.genre && !args.author) {
+                return books.filter(book => book.genres.includes(args.genre))
+            }
+            if (args.author && args.genre) {
+                return books.filter(book => book.author === args.author && book.genres.includes(args.genre))
+            }
         },
         allAuthors: () => authors
     },
