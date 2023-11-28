@@ -134,6 +134,10 @@ const typeDefs = `
         published: Int
         genres: [String]
     ): Book
+    editAuthor(
+        name: String,
+        setBornTo: Int
+    ): Author
   }
 `
 
@@ -142,9 +146,6 @@ const resolvers = {
         bookCount: () => books.length,
         authorCount: () => authors.length,
         allBooks: (root, args) => {
-            if (!args.author && !args.genre) {
-                return books
-            }
             if (args.author && !args.genre) {
                 return books.filter(book => book.author === args.author)
             }
@@ -154,6 +155,7 @@ const resolvers = {
             if (args.author && args.genre) {
                 return books.filter(book => book.author === args.author && book.genres.includes(args.genre))
             }
+            return books
         },
         allAuthors: () => authors
     },
@@ -171,9 +173,15 @@ const resolvers = {
                 authors = authors.concat(author)
             }
             return book
+        },
+        editAuthor: (root, args) => {
+            if (!authors.find(author => author.name === args.name)) return null
+            const author = authors.find(author => author.name === args.name)
+            const updatedAuthor = { ...author, born: args.setBornTo }
+            authors = authors.map(a => a.name === args.name ? updatedAuthor : a)
+            return updatedAuthor
         }
     }
-
 }
 
 const server = new ApolloServer({
