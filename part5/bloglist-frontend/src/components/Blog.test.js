@@ -8,6 +8,7 @@ import Blog from './Blog'
 describe('<Blog />', () => {
   let container
   const addLike = jest.fn()
+  const removeBlog = jest.fn()
 
   beforeEach(() => {
     const blog = {
@@ -16,7 +17,7 @@ describe('<Blog />', () => {
       url: 'www.frontend.com',
       likes: 42
     }
-    container = render(<Blog blog={blog} addLike={addLike} />).container
+    container = render(<Blog blog={blog} addLike={addLike} removeBlog={removeBlog} />).container
   })
 
   test('component renders only the title and the author by default', () => {

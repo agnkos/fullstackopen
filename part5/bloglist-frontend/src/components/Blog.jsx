@@ -13,7 +13,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
 
   const hideWhenVisible = { display: showDetail ? 'none' : '' }
   const showWhenVisible = { display: showDetail ? '' : 'none' }
-  console.log('username', user?.username)
+
   return (
     <div>
       <div style={hideWhenVisible} className="blog-element">
