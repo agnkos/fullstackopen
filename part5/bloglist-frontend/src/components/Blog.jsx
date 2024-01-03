@@ -7,17 +7,13 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
 
   const [showDetail, setShowDetail] = useState(false)
 
-  useEffect(() => {
-    console.log(blog)
-  }, [])
-
   const toggleShowDetail = () => {
     setShowDetail(!showDetail)
   }
 
   const hideWhenVisible = { display: showDetail ? 'none' : '' }
   const showWhenVisible = { display: showDetail ? '' : 'none' }
-
+  console.log('username', user?.username)
   return (
     <div>
       <div style={hideWhenVisible} className="blog-element">
@@ -28,7 +24,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
         <p>{blog.url}</p>
         <p className='blog-likes'>likes: {blog.likes} <button onClick={() => addLike(blog.id)} className='like-btn'>like</button></p>
         <p>added by: {blog?.user?.username}</p>
-        {user.username === blog?.user?.username && <button className="delete-btn" onClick={() => removeBlog(blog.id)}>delete blog</button>}
+        {user?.username === blog?.user?.username && <button className="delete-btn" onClick={() => removeBlog(blog.id)}>delete blog</button>}
       </div>
     </div>
   )
