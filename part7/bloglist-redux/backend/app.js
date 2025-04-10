@@ -32,4 +32,8 @@ if (process.env.NODE_ENV === 'test') {
 
 app.use(errorHandler)
 
+app.get('/prod', (req, res) => {
+    res.send('this is prod')
+})
+
 module.exports = app
