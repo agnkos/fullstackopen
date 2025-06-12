@@ -5,6 +5,7 @@ import { useState } from "react";
 const Authors = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
 
   const authors = useQuery(ALL_AUTHORS, {
     pollInterval: 2000,
@@ -17,10 +18,11 @@ const Authors = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    editAuthor({ variables: { name, date: Number(date) } });
+    editAuthor({ variables: { name: selectedAuthor, date: Number(date) } });
 
     setName("");
     setDate("");
+    setSelectedAuthor("");
   };
 
   return (
@@ -46,12 +48,24 @@ const Authors = () => {
       <form onSubmit={submit} className="author-form">
         <div className="form-el">
           <label htmlFor="name">Name</label>
-          <input
+          <select
+            name="name"
+            value={selectedAuthor}
+            onChange={(e) => setSelectedAuthor(e.target.value)}
+          >
+            <option value="">--Select an author--</option>
+            {authors.data.allAuthors.map((a) => (
+              <option value={a.name} key={a.name}>
+                {a.name}
+              </option>
+            ))}
+          </select>
+          {/* <input
             type="text"
             name="name"
             value={name}
             onChange={({ target }) => setName(target.value)}
-          />
+          /> */}
         </div>
         <div className="form-el">
           <label htmlFor="date">Born</label>
