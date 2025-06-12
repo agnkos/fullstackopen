@@ -15,7 +15,7 @@ const Authors = () => {
   return (
     <div>
       <h2>authors</h2>
-      <table className="authors-table">
+      <table className="table">
         <tbody>
           <tr>
             <th></th>
