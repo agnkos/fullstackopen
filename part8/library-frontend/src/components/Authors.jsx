@@ -6,11 +6,19 @@ const Authors = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const authors = useQuery(ALL_AUTHORS, {
-    pollInterval: 2000,
+    // pollInterval: 2000,
   });
-  const [editAuthor] = useMutation(EDIT_AUTHOR);
+  const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    refetchQueries: [{ query: ALL_AUTHORS }],
+    onError: (error) => {
+      const messages = error.graphQLErrors.map((e) => e.message).join("\n");
+      console.log("error", messages);
+      notify(messages);
+    },
+  });
 
   if (authors.loading) {
     return <div>loading...</div>;
@@ -19,10 +27,17 @@ const Authors = () => {
   const submit = (e) => {
     e.preventDefault();
     editAuthor({ variables: { name: selectedAuthor, date: Number(date) } });
-
+    console.log("date", Number(date));
     setName("");
     setDate("");
     setSelectedAuthor("");
+  };
+
+  const notify = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 10000);
   };
 
   return (
@@ -78,6 +93,7 @@ const Authors = () => {
         </div>
         <button type="submit">Update author</button>
       </form>
+      <div className="error-message">{errorMessage}</div>
     </div>
   );
 };

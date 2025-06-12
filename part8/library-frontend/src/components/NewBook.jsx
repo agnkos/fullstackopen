@@ -8,6 +8,7 @@ const NewBook = () => {
   const [published, setPublished] = useState("");
   const [genre, setGenre] = useState("");
   const [genres, setGenres] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // if (!props.show) {
   //   return null
@@ -15,6 +16,12 @@ const NewBook = () => {
 
   const [addBook] = useMutation(ADD_BOOK, {
     refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
+    onError: (error) => {
+      const messages = error.graphQLErrors.map((e) => e.message).join("\n");
+      console.log("error", messages);
+      notify(messages);
+      // notify(messages);
+    },
   });
 
   const submit = async (event) => {
@@ -35,6 +42,13 @@ const NewBook = () => {
   const addGenre = () => {
     setGenres(genres.concat(genre));
     setGenre("");
+  };
+
+  const notify = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 10000);
   };
 
   return (
@@ -74,6 +88,7 @@ const NewBook = () => {
         <div>genres: {genres.join(" ")}</div>
         <button type="submit">create book</button>
       </form>
+      <div className="error-message">{errorMessage}</div>
     </div>
   );
 };

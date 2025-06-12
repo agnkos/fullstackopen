@@ -1,5 +1,6 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
+const { GraphQLError } = require("graphql");
 const { v1: uuid } = require("uuid");
 
 let authors = [
@@ -129,10 +130,10 @@ const typeDefs = `
 
   type Mutation {
     addBook(
-        title: String
-        author: String
-        published: Int
-        genres: [String]
+        title: String!
+        author: String!
+        published: Int!
+        genres: [String!]!
     ): Book
     editAuthor(
         name: String,
@@ -169,6 +170,16 @@ const resolvers = {
   },
   Mutation: {
     addBook: (root, args) => {
+      if (
+        !args.title ||
+        !args.author ||
+        !args.published ||
+        !args.genres?.length
+      ) {
+        throw new GraphQLError("All fields are required", {
+          extensions: { code: "BAD_USER_INPUT" },
+        });
+      }
       const book = { ...args, id: uuid() };
       books = books.concat(book);
       if (!authors.find((author) => author.name === args.author)) {
