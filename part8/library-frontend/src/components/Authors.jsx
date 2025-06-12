@@ -1,16 +1,27 @@
-import { useQuery } from "@apollo/client";
-import { ALL_AUTHORS } from "../queries";
+import { useMutation, useQuery } from "@apollo/client";
+import { ALL_AUTHORS, EDIT_AUTHOR } from "../queries";
+import { useState } from "react";
 
 const Authors = () => {
-  // if (!props.show) {
-  //   return null
-  // }
-  // const authors = [];
-  const authors = useQuery(ALL_AUTHORS);
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+
+  const authors = useQuery(ALL_AUTHORS, {
+    pollInterval: 2000,
+  });
+  const [editAuthor] = useMutation(EDIT_AUTHOR);
 
   if (authors.loading) {
     return <div>loading...</div>;
   }
+
+  const submit = (e) => {
+    e.preventDefault();
+    editAuthor({ variables: { name, date: Number(date) } });
+
+    setName("");
+    setDate("");
+  };
 
   return (
     <div>
@@ -31,6 +42,28 @@ const Authors = () => {
           ))}
         </tbody>
       </table>
+      <h3>Set birth year</h3>
+      <form onSubmit={submit} className="author-form">
+        <div className="form-el">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={({ target }) => setName(target.value)}
+          />
+        </div>
+        <div className="form-el">
+          <label htmlFor="date">Born</label>
+          <input
+            type="text"
+            name="date"
+            value={date}
+            onChange={({ target }) => setDate(target.value)}
+          />
+        </div>
+        <button type="submit">Update author</button>
+      </form>
     </div>
   );
 };

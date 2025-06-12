@@ -27,3 +27,18 @@ body {
 .table td {
   padding: 0.25em 0.5em;
 }
+
+.author-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.author-form .form-el {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.author-form button {
+  align-self: start;
+}
