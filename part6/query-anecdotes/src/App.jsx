@@ -33,6 +33,7 @@ const App = () => {
 
   // console.log('result', JSON.parse(JSON.stringify(result)))
 
+  
   if (result.isLoading) {
     return <div>loading data...</div>
   }
@@ -40,7 +41,6 @@ const App = () => {
   if (result.isError) {
     return <span>anecdote service not available due to problems in server</span>
   }
-
   const anecdotes = result.data
 
 

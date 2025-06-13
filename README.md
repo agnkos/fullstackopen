@@ -24,4 +24,7 @@ Node.js, Jest, Lodash, supertest, bcrypt, jsonwebtoken <br>
 Testing React Apps - React Testing Library, Jest, Cypress
 
 ### Part 6
-Advanced State Management - Redux, React Query, useReducer, context
+Advanced State Management - Redux, Redux Toolkit, React Query, useReducer, context
+
+### Part 7
+React Router, custom hooks, Bootstrap, Material UI, Styled Components, Webpack, Class components
